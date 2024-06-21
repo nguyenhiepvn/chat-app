@@ -65,3 +65,6 @@ gem 'image_processing', '~> 1.2'
 
 /////
 
+belongs_to :user
+  validates  :user_id  presence :  true  ← Don't
+
