@@ -56,3 +56,12 @@ end
 
  dependent: :destroy
 When a Room instance is deleted, all associated RoomUser records will also be automatically deleted.
+
+//////
+
+brew install imagemagick
+gem 'mini_magick'
+gem 'image_processing', '~> 1.2'
+
+/////
+
