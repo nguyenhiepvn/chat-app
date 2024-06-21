@@ -32,7 +32,12 @@ end
 
 I18n.locale = "en"  
 
+Rails.root.glob('spec/support/**/*.rb').sort.each { |f| require f }
+
 RSpec.configure do |config|
+
+  config.include SignInSupport
+  
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = Rails.root.join('spec/fixtures')
 
