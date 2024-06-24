@@ -1,0 +1,97 @@
+1. Validation (Xác thực dữ liệu)
+Biểu thức chính quy thường được sử dụng để xác thực dữ liệu đầu vào của người dùng trong các model. Ví dụ, để xác thực định dạng email:
+
+ruby
+Sao chép mã
+class User < ApplicationRecord
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }
+end
+2. Custom Validation Methods
+Bạn có thể sử dụng biểu thức chính quy trong các phương thức xác thực tùy chỉnh:
+
+ruby
+Sao chép mã
+class User < ApplicationRecord
+  validate :email_format
+
+  private
+
+  def email_format
+    unless email =~ /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+      errors.add(:email, "is not a valid email")
+    end
+  end
+end
+3. Routing
+Biểu thức chính quy có thể được sử dụng để giới hạn các tham số trong file routes.rb. Ví dụ:
+
+ruby
+Sao chép mã
+Rails.application.routes.draw do
+  get 'posts/:id', to: 'posts#show', id: /\d+/
+end
+Trong ví dụ này, id phải là một số (\d+).
+
+4. String Manipulation (Xử lý chuỗi)
+Biểu thức chính quy có thể được sử dụng để tìm kiếm và thay thế trong chuỗi. Ví dụ, để trích xuất tất cả các địa chỉ email từ một đoạn văn bản:
+
+ruby
+Sao chép mã
+text = "Contact us at info@example.com or support@example.org"
+emails = text.scan(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z]{2,}\b/i)
+# emails = ["info@example.com", "support@example.org"]
+5. Before Save Callbacks
+Bạn có thể sử dụng biểu thức chính quy để chuẩn hóa hoặc thay đổi dữ liệu trước khi lưu vào cơ sở dữ liệu:
+
+ruby
+Sao chép mã
+class User < ApplicationRecord
+  before_save :downcase_email
+
+  private
+
+  def downcase_email
+    self.email = email.downcase.gsub(/\s+/, "")
+  end
+end
+6. Parameter Constraints
+Trong controller, bạn có thể sử dụng biểu thức chính quy để xác thực các tham số:
+
+ruby
+Sao chép mã
+class UsersController < ApplicationController
+  before_action :validate_username
+
+  private
+
+  def validate_username
+    unless params[:username] =~ /\A[a-zA-Z0-9_]+\z/
+      redirect_to root_path, alert: "Invalid username"
+    end
+  end
+end
+7. Log Analysis
+Phân tích file log để tìm kiếm các mẫu cụ thể:
+
+ruby
+Sao chép mã
+File.foreach('log/development.log') do |line|
+  puts line if line =~ /ERROR/
+end
+8. Sanitizing Input
+Biểu thức chính quy cũng có thể được sử dụng để làm sạch đầu vào:
+
+ruby
+Sao chép mã
+class User < ApplicationRecord
+  before_validation :sanitize_phone_number
+
+  private
+
+  def sanitize_phone_number
+    self.phone_number = phone_number.gsub(/[^0-9]/, "")
+  end
+end
+Kết luận
+Biểu thức chính quy là một công cụ mạnh mẽ để xử lý và xác thực chuỗi trong Rails. Chúng giúp bạn dễ dàng xác thực dữ liệu người dùng, định tuyến, xử lý chuỗi, và nhiều tình huống khác. Tuy nhiên, cần sử dụng chúng một cách cẩn thận để tránh các vấn đề về hiệu suất và bảo mật.
