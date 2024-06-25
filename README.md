@@ -68,3 +68,22 @@ gem 'image_processing', '~> 1.2'
 belongs_to :user
   validates  :user_id  presence :  true  ← Don't
 
+rails uses logging levels such as: debug, info, warn, error, fatal, and unknown.  by default, the development environment uses the debug level
+
+ rails server -p 4000  run the rails project with special port
+
+ Chung:
+
+Codebase
+Dependencies
+Config Files
+Riêng:
+
+Database
+Logging
+Caching
+Assets
+Mailers
+
+rails db:create RAILS_ENV=test
+RAILS_ENV=test rails server -p 4000
