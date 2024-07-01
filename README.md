@@ -1,3 +1,4 @@
+
 # README
 
 This README would normally document whatever steps are necessary to get the
@@ -27,3 +28,62 @@ g.stylesheets false: Cấu hình này tắt việc tạo ra file stylesheet (CSS
 g.javascripts false: Cấu hình này tắt việc tạo ra file Javascript mới khi bạn tạo một controller, model hoặc view mới.
 g.helper false: Cấu hình này tắt việc tạo ra file helper mới khi bạn tạo một controller, model hoặc view mới.
 g.test_framework false: Cấu hình này tắt việc tạo ra các file test framework (ví dụ: RSpec hoặc Minitest) khi bạn tạo một controller, model hoặc view mới.
+
+  resources :rooms, only: [:new, :create] do
+    resources :messages, only: [:index, :create]
+  end
+
+  <%= render partial: 'message', collection: @messages %>
+
+ config.i18n.default_locale = :ja
+    config.time_zone = 'Tokyo'
+
+    <%= l message.created_at %>
+    l : localize
+
+<%= link_to "チャットを終了する", room_path(@room), data: { turbo_method: :delete } %> 
+    
+    Khi người dùng nhấp vào liên kết, thay vì gửi một yêu cầu GET (hành vi mặc định của các liên kết), liên kết này sẽ gửi một yêu cầu HTTP DELETE đến URL được tạo bởi room_path(@room).
+Điều này có nghĩa là nó sẽ kích hoạt hành động destroy trong controller rooms_controller (theo mặc định của Rails RESTful routing), thường để xóa phòng chat hiện tại (@room).
+
+class Room < ApplicationRecord
+  has_many :room_users, dependent: :destroy
+  has_many :users, through: :room_users  
+  has_many :messages, dependent: :destroy
+
+  validates :name, presence: true
+end
+
+ dependent: :destroy
+When a Room instance is deleted, all associated RoomUser records will also be automatically deleted.
+
+//////
+
+brew install imagemagick
+gem 'mini_magick'
+gem 'image_processing', '~> 1.2'
+
+/////
+
+belongs_to :user
+  validates  :user_id  presence :  true  ← Don't
+
+rails uses logging levels such as: debug, info, warn, error, fatal, and unknown.  by default, the development environment uses the debug level
+
+ rails server -p 4000  run the rails project with special port
+
+ Chung:
+
+Codebase
+Dependencies
+Config Files
+Riêng:
+
+Database
+Logging
+Caching
+Assets
+Mailers
+
+rails db:create RAILS_ENV=test
+RAILS_ENV=test rails server -p 4000

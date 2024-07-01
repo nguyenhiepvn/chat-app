@@ -67,4 +67,10 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+  #Set logging level
+  config.log_level = :info
+  #Write logs to custom.log file and limit log file size
+  config.logger = Logger.new('log/custom.log', 10, 100.megabytes)
+  
 end
