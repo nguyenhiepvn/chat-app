@@ -91,7 +91,7 @@ class User < ApplicationRecord
 
   def sanitize_phone_number
     self.phone_number = phone_number.gsub(/[^0-9]/, "")
-  end
+  end 123123123123
 end
 Kết luận
 Biểu thức chính quy là một công cụ mạnh mẽ để xử lý và xác thực chuỗi trong Rails. Chúng giúp bạn dễ dàng xác thực dữ liệu người dùng, định tuyến, xử lý chuỗi, và nhiều tình huống khác. Tuy nhiên, cần sử dụng chúng một cách cẩn thận để tránh các vấn đề về hiệu suất và bảo mật.
